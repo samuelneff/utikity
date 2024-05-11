@@ -1,11 +1,11 @@
-# utll
+# utikity
 
 Unique collection of utility functions; adds on to others, doesn't replace them (mostly).
 
 # Installing
 
 ```bash
-npm install utll
+npm install utikity
 ```
 
 # Functions

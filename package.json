@@ -1,5 +1,5 @@
 {
-  "name": "utll",
+  "name": "utikity",
   "version": "1.0.0",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "src/index.ts",
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samuelneff/utll.git"
+    "url": "git+https://github.com/samuelneff/utikity.git"
   },
   "keywords": [
     "utility",
@@ -19,9 +19,9 @@
   "author": "Samuel Neff <sam@serndesign.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samuelneff/utll/issues"
+    "url": "https://github.com/samuelneff/utikity/issues"
   },
-  "homepage": "https://github.com/samuelneff/utll#readme",
+  "homepage": "https://github.com/samuelneff/utikity#readme",
   "dependencies": {
     "lodash": "^4.17.21"
   },
