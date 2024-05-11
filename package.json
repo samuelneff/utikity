@@ -2,8 +2,9 @@
   "name": "utikity",
   "version": "1.0.0",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "scripts": {
+    "start": "tsc"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,9 @@
   },
   "optionalDependencies": {
     "yaml": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.1",
+    "typescript": "^5.4.5"
   }
 }
