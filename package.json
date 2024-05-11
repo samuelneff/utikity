@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "tsc"
   },

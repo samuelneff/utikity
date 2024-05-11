@@ -1,4 +1,4 @@
-import { RecordKey } from './RecordKey';
+import { type RecordKey } from './RecordKey';
 import { isNullOrUndefined } from './isNullOrUndefined';
 import { isString } from './isString';
 import { randomBelow } from './randomBelow';

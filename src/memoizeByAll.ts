@@ -1,4 +1,4 @@
-import { MemoizedFunction, isObject, memoize } from 'lodash';
+import { type MemoizedFunction, isObject, memoize } from 'lodash';
 import { ExError, isNullUndefinedOrEmpty } from '.';
 
 export function memoizeByAll<TFunc extends (...args: any) => any>(func: TFunc): TFunc & MemoizedFunction {

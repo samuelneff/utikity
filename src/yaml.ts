@@ -4,14 +4,14 @@ import { isDefined } from './isDefined';
 import { isFunction } from './isFunction';
 import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
 import {
-  CreateNodeOptions,
-  DocumentOptions,
   parse,
-  ParseOptions,
-  SchemaOptions,
   stringify,
-  ToJSOptions,
-  ToStringOptions
+  type CreateNodeOptions,
+  type DocumentOptions,
+  type ParseOptions,
+  type SchemaOptions,
+  type ToJSOptions,
+  type ToStringOptions
 } from 'yaml';
 
 // Unable to import yaml's own Replacer or Reviver declarations
