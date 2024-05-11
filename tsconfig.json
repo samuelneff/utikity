@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "module": "esnext",
+    "moduleResolution": "node",
     "target": "es2022",
     "verbatimModuleSyntax": true,
+    "lib": ["ES2023", "DOM"],
+    "esModuleInterop": true,
+
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
-    "lib": ["ES2023", "DOM"],
     "skipLibCheck": true,
-    "moduleResolution": "node",
     "useDefineForClassFields": true,
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
