@@ -1,0 +1,31 @@
+{
+  "name": "utll",
+  "version": "1.0.0",
+  "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
+  "main": "src/index.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelneff/utll.git"
+  },
+  "keywords": [
+    "utility",
+    "functions",
+    "lodash",
+    "underscore",
+    "ramda"
+  ],
+  "author": "Samuel Neff <sam@serndesign.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samuelneff/utll/issues"
+  },
+  "homepage": "https://github.com/samuelneff/utll#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "optionalDependencies": {
+    "yaml": "^2.4.2"
+  }
+}
