@@ -2,12 +2,12 @@ import { Delimiter, substringEnd } from '../src';
 
 test('undefined, undefined', () => {
   const actual = substringEnd(undefined as unknown as string, undefined as unknown as string);
-  expect(actual).toBeUndefined();
+  expect(actual).toBe('');
 });
 
 test('undefined, string', () => {
   const actual = substringEnd(undefined as unknown as string, ',');
-  expect(actual).toBeUndefined();
+  expect(actual).toBe('');
 });
 
 test('string, undefined', () => {

@@ -1,6 +1,6 @@
 {
   "name": "utikity",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "src/index.ts",
   "type": "module",
