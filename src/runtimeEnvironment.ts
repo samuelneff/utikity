@@ -5,6 +5,7 @@ export const predefinedRuntimeEnvironments = {
   local: 'local',
   production: 'production',
   development: 'development',
+  unknown: 'unknown',
 };
 
 export function runtimeEnvironment(newRuntimeEnvironment?: string) {

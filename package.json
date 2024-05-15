@@ -1,11 +1,12 @@
 {
   "name": "utikity",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "tsc"
+    "start": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,13 +26,16 @@
   },
   "homepage": "https://github.com/samuelneff/utikity#readme",
   "dependencies": {
-    "lodash": "^4.17.21"
-  },
-  "optionalDependencies": {
+    "lodash": "^4.17.21",
     "yaml": "^2.4.2"
   },
   "devDependencies": {
+    "@jest/types": "^29.6.3",
+    "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
 }

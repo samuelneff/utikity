@@ -3,7 +3,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2022",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "lib": ["ES2023", "DOM"],
     "esModuleInterop": true,
 
