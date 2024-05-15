@@ -7,6 +7,7 @@
 //
 
 export * from './ApiExError';
+export * from './Delimiter';
 export * from './ExError';
 export * from './HttpMethod';
 export * from './RecordKey';
@@ -117,8 +118,8 @@ export * from './runtimeEnvironment';
 export * from './safeObjectEntries';
 export * from './splitOnCaseWords';
 export * from './standardizeSearchText';
-export * from './stripAfter';
-export * from './stripStart';
+export * from './substringEnd';
+export * from './substringStart';
 export * from './throwError';
 export * from './timeInSeconds';
 export * from './toBoolean';
