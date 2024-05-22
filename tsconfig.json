@@ -1,27 +1,29 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "target": "es2022",
     "verbatimModuleSyntax": false,
     "lib": ["ES2023", "DOM"],
     "esModuleInterop": true,
-
+    "outDir": "dist",
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
     "skipLibCheck": true,
     "useDefineForClassFields": true,
-    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
