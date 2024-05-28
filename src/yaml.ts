@@ -1,9 +1,12 @@
+import { isObject } from 'lodash';
 import { doSafely } from './doSafely';
 import { fastMaybeParseDateString } from './fastMaybeParseDateString';
 import { isDefined } from './isDefined';
 import { isFunction } from './isFunction';
+import { isNullOrUndefined } from './isNullOrUndefined';
 import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
 import {
+  isScalar,
   parse,
   stringify,
   type CreateNodeOptions,
@@ -18,7 +21,9 @@ import {
 export type Replacer = any[] | ((key: any, value: any) => unknown);
 export type Reviver = (key: unknown, value: unknown) => unknown;
 
-export type YamlParseOptions = ParseOptions & DocumentOptions & SchemaOptions & ToJSOptions;
+export type YamlParseOptions = ParseOptions & DocumentOptions & SchemaOptions & ToJSOptions & {
+  copyAliases?: boolean;
+};
 
 export function yamlParse(yamlText: string, options?: YamlParseOptions): unknown;
 export function yamlParse(yamlText: string, reviver: Reviver, options?: YamlParseOptions): unknown;
@@ -41,11 +46,50 @@ export function yamlParse(
     options = reviverOrOptions;
   }
 
-  return parse(yamlText, reviver, options);
+  let obj = parse(yamlText, reviver, options);
+
+  if (options?.copyAliases !== false) {
+    obj = copyAliases(obj, new Map());
+  }
+
+  return obj;
 }
 
 function yamlParseStandardReviver(_key: unknown, value: unknown) {
   return fastMaybeParseDateString(value);
+}
+
+function copyAliases(obj: any, foundObjects: Map<unknown, number>) {
+  if (isNullOrUndefined(obj) || isScalar(obj)) {
+    return obj;
+  }
+
+  for (const [ key, value ] of Object.entries(obj)) {
+    if (!isObject(value)) {
+      continue;
+    }
+    const found = foundObjects.get(value);
+    if (!found) {
+      foundObjects.set(value, 1);
+      obj[ key ] = copyAliases(value, foundObjects);
+      continue;
+    }
+
+    if (found > 100) {
+      // this object had too many references to itself
+      obj[ key ] = null;
+      continue;
+    }
+
+    foundObjects.set(value, found + 1);
+    const shallowCopy = Array.isArray(value)
+      ? [ ...value ]
+      : { ...value };
+
+    obj[ key ] = copyAliases(shallowCopy, foundObjects)
+  }
+
+  return obj;
 }
 
 /**
