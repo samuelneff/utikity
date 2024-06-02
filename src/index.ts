@@ -83,6 +83,7 @@ export * from './isTrueScalar';
 export * from './jsonParseBetter';
 export * from './jsonStringifyBetter';
 export * from './lineIndent';
+export * from './mapCount';
 export * from './mapDefined';
 export * from './mapFirst';
 export * from './mapGetOrAdd';
