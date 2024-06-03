@@ -1,4 +1,5 @@
 import { isNullOrUndefined } from './isNullOrUndefined';
+import { isScalarLike } from './isScalarLike';
 import { isString } from './isString';
 
 export function isEmpty(value: unknown) {
@@ -8,6 +9,10 @@ export function isEmpty(value: unknown) {
 
   if (isString(value) || Array.isArray(value)) {
     return value.length === 0;
+  }
+
+  if (isScalarLike(value)) {
+    return false;
   }
 
   if (value instanceof Map || value instanceof Set) {
