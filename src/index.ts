@@ -11,6 +11,7 @@ export * from './Delimiter';
 export * from './ExError';
 export * from './HttpMethod';
 export * from './RecordKey';
+export * from './arrayOf';
 export * from './assertArray';
 export * from './assertNotEmpty';
 export * from './assertNotNull';
