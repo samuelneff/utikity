@@ -32,6 +32,7 @@ export * from './constants';
 export * from './copyArrayTo';
 export * from './countMatching';
 export * from './countOccurrences';
+export * from './countValues';
 export * from './createCssAnimation';
 export * from './createElementWithAttributes';
 export * from './createFixedNumberValidator';
