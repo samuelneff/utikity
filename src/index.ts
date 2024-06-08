@@ -30,6 +30,7 @@ export * from './compareArrays';
 export * from './compareKeys';
 export * from './constants';
 export * from './copyArrayTo';
+export * from './countMatching';
 export * from './countOccurrences';
 export * from './createCssAnimation';
 export * from './createElementWithAttributes';
