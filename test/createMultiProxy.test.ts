@@ -23,3 +23,20 @@ test('simple', () => {
   expect(actual.d).toBe('D');
   expect(actual.e).toBe('E');
 });
+
+test('in', () => {
+  const actual = createMultiProxy(
+    {
+      a: 'A',
+    },
+    {
+      b: 'B',
+    },
+  );
+
+  const hasB = 'b' in actual;
+
+  expect('a' in actual).toBeTruthy();
+  expect(hasB).toBeTruthy();
+  expect('c' in actual).toBeFalsy();
+});

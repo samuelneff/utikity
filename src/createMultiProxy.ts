@@ -14,6 +14,14 @@ export function createMultiProxy<T extends object[]>(...objects: [...T]) {
         }
       }
       return undefined;
+    },
+    has(_target: unknown, prop: string) {
+      for (const multiTarget of objects) {
+        if (prop in multiTarget) {
+          return true;
+        }
+      }
+      return false;
     }
   };
   return new Proxy(objects[ 0 ] ?? {}, handler) as Spread<T>;
