@@ -16,5 +16,5 @@ export function createMultiProxy<T extends object[]>(...objects: [...T]) {
       return undefined;
     }
   };
-  return new Proxy(objects[ 0 ], handler) as Spread<T>;
+  return new Proxy(objects[ 0 ] ?? {}, handler) as Spread<T>;
 }
