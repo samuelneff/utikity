@@ -19,7 +19,7 @@ test('simple', () => {
 
   expect(actual.a).toBe('A');
   expect(actual.b).toBe('B');
-  expect(actual.c).toBe(undefined);
+  expect(actual.c).toBe('C');
   expect(actual.d).toBe('D');
   expect(actual.e).toBe('E');
 });
@@ -40,3 +40,25 @@ test('in', () => {
   expect(hasB).toBeTruthy();
   expect('c' in actual).toBeFalsy();
 });
+
+test('null and undefined', () => {
+
+  const actual = createMultiProxy(
+    {
+      a: 'A',
+      b: 'B',
+    },
+    null,
+    undefined,
+    {
+      c: 'C',
+      e: 'E'
+    }
+  );
+
+  expect(actual.a).toBe('A');
+  expect(actual.b).toBe('B');
+  expect(actual.c).toBe('C');
+  expect(actual.e).toBe('E');
+});
+
