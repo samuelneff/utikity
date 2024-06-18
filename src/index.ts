@@ -104,6 +104,7 @@ export * from './parseHeight';
 export * from './parseInteger';
 export * from './parseUnlimitedCurrency';
 export * from './parseWholeNumberToPercent';
+export * from './pascalCase';
 export * from './pickValues';
 export * from './px';
 export * from './randomBelow';
