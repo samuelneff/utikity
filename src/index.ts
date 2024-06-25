@@ -88,6 +88,8 @@ export * from './isTrueScalar';
 export * from './jsonParseBetter';
 export * from './jsonStringifyBetter';
 export * from './lineIndent';
+export * from './localeIncludes';
+export * from './localeStartsWith';
 export * from './mapCount';
 export * from './mapDefined';
 export * from './mapFirst';
