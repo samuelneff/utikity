@@ -43,7 +43,7 @@ function localeIncludesAnywhere(
   locales: Intl.LocalesArgument | undefined,
   options: Intl.CollatorOptions | undefined
 ) {
-  const len = text.length - substring.length;
+  const len = text.length - substring.length + 1;
 
   for (let i = 0; i < len; i++) {
     if (localeIncludes(

@@ -15,3 +15,11 @@ test('false', () => {
   );
   expect(actual).toBeFalsy();
 });
+
+test('equals', () => {
+  const actual = localeStartsWith(
+    'abcdèfghíjkl',
+    'ABCDEFGHIJKL'
+  );
+  expect(actual).toBeTruthy();
+});
