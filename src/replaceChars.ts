@@ -1,3 +1,4 @@
+import { escapeRegExp } from 'lodash';
 
 const replaceCharsRegexCache = {} as Record<string, RegExp>;
 
@@ -12,6 +13,6 @@ export function replaceChars(
 ) {
   const regex =
     replaceCharsRegexCache[chars] ||
-    (replaceCharsRegexCache[chars] = new RegExp(`[${chars}]`, 'g'));
+    (replaceCharsRegexCache[chars] = new RegExp(`[${escapeRegExp(chars)}]`, 'g'));
   return source.replaceAll(regex, replacement);
 }
