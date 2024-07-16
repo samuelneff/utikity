@@ -1,12 +1,12 @@
 {
   "name": "utikity",
-  "version": "1.8.2",
+  "version": "1.9.0",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc",
     "prepublish": "tsc",
-    "test": "jest"
+    "test": "tsc && jest"
   },
   "repository": {
     "type": "git",
