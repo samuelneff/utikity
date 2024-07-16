@@ -36,6 +36,7 @@ export * from './countOccurrences';
 export * from './countValues';
 export * from './createCssAnimation';
 export * from './createElementWithAttributes';
+export * from './createEntityEncodeProxy';
 export * from './createFixedNumberValidator';
 export * from './createMultiProxy';
 export * from './defaultTemplateLiteral';
