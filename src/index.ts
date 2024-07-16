@@ -43,6 +43,7 @@ export * from './defaultTemplateLiteral';
 export * from './delayPromise';
 export * from './doSafely';
 export * from './echo';
+export * from './entityEncode';
 export * from './entriesRecord';
 export * from './errorCauseChain';
 export * from './fastMaybeParseDateString';
