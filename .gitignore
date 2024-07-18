@@ -1,5 +1,5 @@
-# Core files
-src/*.js
+# Docs are generated so don't put into source control
+docs
 
 # Logs
 logs
