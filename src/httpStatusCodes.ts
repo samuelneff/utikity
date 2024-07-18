@@ -1,7 +1,10 @@
 /**
- * Maps both from HTTP status code messages to numeric codes and numeric codes back to messages.
+ * Maps HTTP status code messages to numeric codes.
  *
- * Is an object, not an enum, since integration with other APIs too often requires a string.
+ * It's an object, not an enum, since integration with other APIs too often requires a string.
+ *
+ * A non-standard value `000` is included to represent client-side errors useful in some circumstances,
+ * differentiated from `4xx` codes that represent errors resulting from an invalid client-provided request.
  */
 export const httpStatusCodes = {
   clientSideError: '000',
@@ -70,6 +73,10 @@ export const httpStatusCodes = {
   networkAuthenticationRequired: '511'
 };
 
+/**
+ * Represent the five official categorizations of HTTP status codes as well as a custom one
+ * representing pure client-side errors.
+ */
 export enum HttpStatusCategory {
   ClientInternalError,
   Informational,
@@ -79,30 +86,52 @@ export enum HttpStatusCategory {
   ServerError,
 }
 
+/**
+ * Returns the {@link HttpStatusCategory} for a given status code.
+ */
 export function toHttpStatusCodeCategory(code: string | number) {
   return Number.parseInt(code.toString().charAt(0)) as HttpStatusCategory;
 }
 
+/**
+ * Determines if an HTTP status code represents the non-standard client-side status code, `000`.
+ */
 export function isClientInternalErrorStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.ClientInternalError;
 }
 
+/**
+ * Determines if a status code represents an informational message. Rarely used in web
+ * development outside of low-level protocol implementations.
+ */
 export function isInformationalStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.Informational;
 }
 
+/**
+ * Determines if the HTTP status code is any of the acceptable response codes.
+ */
 export function isOkStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.Ok;
 }
 
+/**
+ * Determines if the HTTP status code is any of the redirect codes.
+ */
 export function isRedirectStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.Redirect;
 }
 
+/**
+ * Determines if the HTTP status code is any of the user request error codes.
+ */
 export function isUserErrorStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.UserError;
 }
 
+/**
+ * Determines if the HTTP status code is any of the server error codes.
+ */
 export function isServerErrorStatusCode(code: string | number) {
   return toHttpStatusCodeCategory(code) === HttpStatusCategory.ServerError;
 }

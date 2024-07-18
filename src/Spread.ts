@@ -7,24 +7,12 @@
 export type OptionalPropertyNames<T> =
   { [ K in keyof T ]-?: ({} extends { [ P in K ]: T[ K ] } ? K : never) }[ keyof T ];
 
-/**
- * Internal component type of {@link Spread}.
- * @see {@link Spread}
- */
-export type SpreadProperties<L, R, K extends keyof L & keyof R> =
+type SpreadProperties<L, R, K extends keyof L & keyof R> =
   { [ P in K ]: L[ P ] | Exclude<R[ P ], undefined> };
 
-/**
- * Internal component type of {@link Spread}.
- * @see {@link Spread}
- */
-export type Id<T> = T extends infer U ? { [ K in keyof U ]: U[ K ] } : never;
+type Id<T> = T extends infer U ? { [ K in keyof U ]: U[ K ] } : never;
 
-/**
- * Internal component type of {@link Spread}.
- * @see {@link Spread}
- */
-export type SpreadTwo<L, R> = Id<
+type SpreadTwo<L, R> = Id<
   & Pick<L, Exclude<keyof L, keyof R>>
   & Pick<R, Exclude<keyof R, OptionalPropertyNames<R>>>
   & Pick<R, Exclude<OptionalPropertyNames<R>, keyof L>>
@@ -53,6 +41,7 @@ export type SpreadTwo<L, R> = Id<
  * expect(x).toEqual(y);
  *
  * @see {@link createMultiProxy}
+ * @see Credit to [jcalz](https://stackoverflow.com/users/2887218/jcalz) on [Stack Overflow](https://stackoverflow.com/a/49683575/118703)
  */
 export type Spread<A extends readonly [ ...any ]> = A extends [ infer L, ...infer R ] ?
   SpreadTwo<L, Spread<R>> : unknown;
