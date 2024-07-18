@@ -4,7 +4,7 @@
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "typedoc --watch & tsc --watch",
+    "start": "typedoc --watch --emit both",
     "build": "tsc",
     "docs": "typedoc",
     "docs:watch": "typedoc --watch",
@@ -40,6 +40,7 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.26.4",
+    "typedoc-plugin-extras": "^3.1.0",
     "typedoc-plugin-mdn-links": "^3.2.4",
     "typedoc-plugin-replace-text": "^4.0.0",
     "typescript": "^5.4.5"

@@ -1,0 +1,92 @@
+:root {
+  --utikity-blue: #0939E3;
+  --utikity-orange: #FF8A00;
+}
+header a.title {
+  padding-left: 60px;
+}
+
+header a.title::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-background);
+  background-image: url('../favicon.svg');
+  background-position: top left;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+}
+.settings {
+  display: none;
+}
+
+.tsd-navigation .tsd-kind-icon {
+  opacity: 0.25;
+}
+
+.tsd-navigation a,
+.tsd-page-navigation a {
+  border-bottom: 1px solid transparent;
+}
+
+.tsd-navigation a.current,
+.tsd-page-navigation a.current,
+.tsd-navigation a:hover,
+.tsd-page-navigation a:hover {
+  background: linear-gradient(
+    to right,
+    transparent calc(100% - 1em),
+    var(--utikity-orange) calc(100% - 1em)
+  );
+  border-bottom: 1px solid var(--utikity-orange);
+  text-decoration: none;
+}
+
+.tsd-navigation a.current span,
+.tsd-page-navigation a.current span {
+  /* color: var(--utikity-blue); */
+}
+
+.tsd-sources a.external,
+a.tsd-kind-project,
+a.tsd-kind-module,
+a.tsd-kind-namespace,
+a.tsd-kind-enum,
+a.tsd-kind-enum-member,
+a.tsd-kind-variable,
+a.tsd-kind-function,
+a.tsd-kind-class,
+a.tsd-kind-interface,
+a.tsd-kind-constructor,
+a.tsd-kind-property,
+a.tsd-kind-method,
+a.tsd-kind-call-signature,
+a.tsd-kind-index-signature,
+a.tsd-kind-constructor-signature,
+a.tsd-kind-parameter,
+a.tsd-kind-type-literal,
+a.tsd-kind-type-parameter,
+a.tsd-kind-accessor,
+a.tsd-kind-get-signature,
+a.tsd-kind-set-signature,
+a.tsd-kind-type-alias {
+  font-family: monospace;
+}
+
+.tsd-generator {
+  font-size: 80%;
+  color: var(--color-active-menu-item);
+}
+
+.tsd-generator br {
+  display: none;
+}
+
+#generation-date::before {
+  content: "–";
+  display: inline-block;
+  padding-right: 1em;
+  padding-left: 1em;
+}
