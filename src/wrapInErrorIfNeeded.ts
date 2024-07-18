@@ -1,6 +1,7 @@
 /**
  * Ensures the passed in error is actually an error, and wraps it in an error if it isn't.
- * @example &lt;caption>Wrapping a non-error&lt;/caption>
+ * @example
+ * // Wrapping a non-error
  *
  * function throwsNonError() {
  *   try {

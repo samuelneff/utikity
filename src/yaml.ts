@@ -18,8 +18,14 @@ import {
 } from 'yaml';
 
 /**
- * Replacer function definition from [yaml](https://www.npmjs.com/package/yaml) but their's is not exported for some reason. Matches the
- * {@link JSON.stringify()} definition.
+ * Type representing any valid type that can be converted to or from a YAML string.
+ * @see {@link yamlParse}
+ */
+export type YamlObject = object | unknown[] | string | number | boolean | Date;
+
+/**
+ * Replacer function definition from [npm!yaml] but their's is not exported for some reason. Matches the
+ * {@link !JSON.stringify} definition.
  *
  * @example
  * // Replacer defined here
@@ -43,20 +49,40 @@ import {
  * expect(actual).toEqualIgnoringWhitespace(expected);
  *
  * @see {@link yamlStringify}
- * @see [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+ * @see {@link !JSON.stringify}
  */
 export type Replacer = any[] | ((key: any, value: any) => unknown);
+
 /**
- * Reviver function definition from {@link https://www.npmjs.com/package/yaml|yaml} but their's is not exported for
- * some reason. Matches the {@link JSON.parse()} definition.
+ * Reviver function definition from [npm!yaml]. Only exported because the original is not, I'm not sure why.
+ * Matches the {@link !JSON.parse} definition.
+ *
+ * @example
+ * // Reviver defined here
+ * function piToNumber(key: unknown, value: unknown) {
+ *   if (key === 'pi') {
+ *     return 3.14159265359;
+ *   }
+ *   return value;
+ * }
+ *
+ * const yaml = 'value: pi';
+ *
+ * // Reviver used here
+ * const actual = yamlParse(yaml, piToNumber);
+ * const expected = { value: 3.14159265359 };
+ *
+ * expect(actual).toEqual(expected);
+ *
+ * @see {@link yamlParse}
  * @see {@link !JSON.parse}
- * @see {yamlParse}
  */
 export type Reviver = (key: unknown, value: unknown) => unknown;
 
 /**
- * Parse option from {@link https://www.npmjs.com/package/yaml|yaml} with additional option regarding copying aliases,
- * as opposed to preserving references.
+ * Parse option from [npm!yaml] with additional option for copying aliases, as opposed to preserving references.
+ *
+ * @see {@link yamlParse}
  */
 export type YamlParseOptions = ParseOptions & DocumentOptions & SchemaOptions & ToJSOptions & {
   /**
@@ -66,12 +92,53 @@ export type YamlParseOptions = ParseOptions & DocumentOptions & SchemaOptions & 
   copyAliases?: boolean;
 };
 
+export function yamlParse(yamlText: string, options?: YamlParseOptions): YamlObject;
+export function yamlParse(yamlText: string, reviver: Reviver, options?: YamlParseOptions): YamlObject;
 /**
- * Parses a YAML string into an object. Wrapper for `{@link https://www.npmjs.com/package/yaml|yaml}.parse()` from
+ * Parses a [YAML](https://yaml.org/) string into an object. Wrapper for [npm!yaml]'s `parse` method
  * with added functionality to copy aliases instead of creating objects with internal references.
+ *
+ * @example
+ * // Simple example with a small object
+ *
+ * const yaml = `
+ *   key: This is a string
+ *   value: 123
+ * `;
+ * const expected = {
+ *   key: 'This is a string',
+ *   value: 123,
+ * };
+ * const actual = yamlParse(yaml);
+ *
+ * expect(actual).toEqual(expected);
+ *
+ * @example
+ * // Example with an alias.
+ *
+ * const yaml = `
+ *   - source: &alias
+ *       key: value
+ *   - target: *alias
+ * `;
+ * const expected = {
+ *   source: {
+ *     key: 'value',
+ *   },
+ *   target: {
+ *     key: 'value',
+ *   },
+ * };
+ * const actual = yamlParse(yaml);
+ *
+ * expect(actual).toEqual(expected);
+ *
+ * // This is the key difference from stock yaml,
+ * // the alias is rehydrated as a copy, not a reference.
+ * expect(actual.source).not.toBe(actual.target);
+ *
+ * @see {@link yamlStringify}
  */
-export function yamlParse(yamlText: string, options?: YamlParseOptions): unknown;
-export function yamlParse(yamlText: string, reviver: Reviver, options?: YamlParseOptions): unknown;
 export function yamlParse(
   yamlText: string,
   reviverOrOptions?: Reviver | YamlParseOptions,
@@ -138,32 +205,56 @@ function copyAliases(obj: any, foundObjects: Map<unknown, number>) {
 }
 
 /**
- * Converts an object to a YAML string with added functionality to stringify {Error} objects as plain objects.
+ * Stringify options from [npm!yaml]. Exported for brevity only.
  *
- * @param replacer - A replacer array or function, as in {JSON.stringify}
- * @returns YAML string. It will always include `\n` as the last character, as is expected of YAML documents.
+ * @see {@link yamlStringify}
  */
-export function yamlStringify(
-  value: any,
-  options?: DocumentOptions &
+export type YamlStringifyOptions =
+  | string
+  | number
+  | (DocumentOptions &
     SchemaOptions &
     ParseOptions &
     CreateNodeOptions &
-    ToStringOptions,
-): string;
-export function yamlStringify(
-  value: any,
-  replacer?: Replacer | null,
-  options?:
-    | string
-    | number
-    | (DocumentOptions &
-        SchemaOptions &
-        ParseOptions &
-        CreateNodeOptions &
-        ToStringOptions),
-): string;
-export function yamlStringify(value: any, arg2?: any, arg3?: any) {
+    ToStringOptions);
+
+export function yamlStringify(value: unknown, options?: YamlStringifyOptions): string;
+export function yamlStringify(value: unknown, replacer?: Replacer | null, options?: YamlStringifyOptions): string;
+/**
+ * Converts an object to a YAML string with added functionality to stringify {@link !Error} objects as plain objects.
+ *
+ * @example
+ * // Simple example with two keys
+ *
+ * const obj = {
+ *   key: 'This is a string',
+ *   value: 123,
+ * };
+ * const expected = `
+ *   key: This is a string
+ *   value: 123
+ * `;
+ * const actual = yamlStringify(yaml);
+ *
+ * expect(actual).toEqualIgnoringWhitespace(expected);
+ *
+ * @example
+ * // Example with an Error which normally would be excluded from the output.
+ *
+ * const obj = {
+ *   error: new Error('This is an error'),
+ * };
+ * const expected = `
+ *   error:
+ *     message: This is an error
+ * `;
+ * const actual = yamlStringify(yaml);
+ *
+ * expect(actual).toEqualIgnoringWhitespace(expected);
+ *
+ * @see {@link yamlParse}
+ */
+export function yamlStringify(value: unknown, arg2?: any, arg3?: any) {
   let replacer: (key: string, value: unknown) => unknown;
 
   if (isFunction(arg2)) {

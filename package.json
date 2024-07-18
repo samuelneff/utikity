@@ -4,7 +4,10 @@
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc",
+    "start": "typedoc --watch & tsc --watch",
+    "build": "tsc",
+    "docs": "typedoc",
+    "docs:watch": "typedoc --watch",
     "prepublish": "tsc",
     "test": "tsc && jest"
   },

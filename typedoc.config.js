@@ -13,6 +13,10 @@ module.exports = {
       {
         pattern: /\[([^\]]+)\]\(([^)]+)\)/,
         replace: '<a href="$2" target="_blank">$1</a>'
+      },
+      {
+        pattern: /\[npm!([\w-]+)\]/,
+        replace: '<a href="https://www.npmjs.com/package/$1" target="_blank">$1</a>'
       }
     ]
   }
