@@ -17,14 +17,59 @@ import {
   type ToStringOptions
 } from 'yaml';
 
-// Unable to import yaml's own Replacer or Reviver declarations
+/**
+ * Replacer function definition from [yaml](https://www.npmjs.com/package/yaml) but their's is not exported for some reason. Matches the
+ * {@link JSON.stringify()} definition.
+ *
+ * @example
+ * // Replacer defined here
+ * function forceAllNumbersToStrings(_key: unknown, value: unknown) {
+ *   return typeof value === 'number'
+ *     ? String(value)
+ *     : value;
+ * }
+ * const input = {
+ *   'string': 'ABC',
+ *   'number': 123,
+ * };
+ *
+ * // Replacer used here
+ * const actual = yamlStringify(input, forceAllNumbersToStrings);
+ *
+ * const expected = `
+ *   string: ABC
+ *   number: 456;
+ * `;
+ * expect(actual).toEqualIgnoringWhitespace(expected);
+ *
+ * @see {@link yamlStringify}
+ * @see [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+ */
 export type Replacer = any[] | ((key: any, value: any) => unknown);
+/**
+ * Reviver function definition from {@link https://www.npmjs.com/package/yaml|yaml} but their's is not exported for
+ * some reason. Matches the {@link JSON.parse()} definition.
+ * @see {@link !JSON.parse}
+ * @see {yamlParse}
+ */
 export type Reviver = (key: unknown, value: unknown) => unknown;
 
+/**
+ * Parse option from {@link https://www.npmjs.com/package/yaml|yaml} with additional option regarding copying aliases,
+ * as opposed to preserving references.
+ */
 export type YamlParseOptions = ParseOptions & DocumentOptions & SchemaOptions & ToJSOptions & {
+  /**
+   * When specified, aliases are parsed as copied objects instead of references to an object. Be careful though,
+   * circular references could create endless loops and will be copied to a depth of 100.
+   */
   copyAliases?: boolean;
 };
 
+/**
+ * Parses a YAML string into an object. Wrapper for `{@link https://www.npmjs.com/package/yaml|yaml}.parse()` from
+ * with added functionality to copy aliases instead of creating objects with internal references.
+ */
 export function yamlParse(yamlText: string, options?: YamlParseOptions): unknown;
 export function yamlParse(yamlText: string, reviver: Reviver, options?: YamlParseOptions): unknown;
 export function yamlParse(
@@ -93,10 +138,10 @@ function copyAliases(obj: any, foundObjects: Map<unknown, number>) {
 }
 
 /**
- * Stringify a value as a YAML document.
+ * Converts an object to a YAML string with added functionality to stringify {Error} objects as plain objects.
  *
- * @param replacer - A replacer array or function, as in `JSON.stringify()`
- * @returns Will always include `\n` as the last character, as is expected of YAML documents.
+ * @param replacer - A replacer array or function, as in {JSON.stringify}
+ * @returns YAML string. It will always include `\n` as the last character, as is expected of YAML documents.
  */
 export function yamlStringify(
   value: any,

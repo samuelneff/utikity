@@ -3,8 +3,10 @@ import { isSymbol } from './isSymbol';
 
 /**
  * Identifies if the argument is generally considered scalar: [string], [number], [boolean], or [Date].
- * Includes [Date], excludes [undefined], [null], [NaN], and [Symbol]. @See [isTrueScalar] for more
+ * Includes [Date], excludes [undefined], [null], [NaN], and [Symbol]. {@link isTrueScalar} for more
  * specific use cases.
+ *
+ * @see {isTrueScalar}
  */
 export function isScalarLike(value: unknown): value is string | number | boolean | Date {
   return isString(value) ||
