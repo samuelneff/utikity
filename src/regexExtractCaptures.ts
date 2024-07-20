@@ -34,7 +34,7 @@ export function regexExtractCaptures(
 
 /**
  * Return many captures from many matches as a nested array of string arrays; almost identical
- * to {@link !RegExp.matchAll} except only the captures are returned, not the full match.
+ * to {@link !String.matchAll} except only the captures are returned, not the full match.
  */
 export function regexExtractCaptures(
   search: string,
@@ -55,7 +55,7 @@ export function regexExtractCaptures(
 /**
  * Executes a RegExp match against a string and returns the capture results, either a single
  * string, an array of strings, or nested array of string arrays, depending on the
- * requested result type and pattern. It's a wrapper around {@link !RegExp.matchAll} with
+ * requested result type and pattern. It's a wrapper around {@link !String.matchAll} with
  * an easier to work with result.
  *
  * @example
@@ -128,6 +128,8 @@ export function regexExtractCaptures(
  *     'tring',
  *   ]
  * );
+ *
+ * @see {@link !String.matchAll}
  */
 export function regexExtractCaptures<T extends RegexExtractCapturesResult | undefined>(
   search: string,

@@ -1,10 +1,10 @@
 import { isObject } from 'lodash';
-import { doSafely } from './doSafely';
 import { fastMaybeParseDateString } from './fastMaybeParseDateString';
 import { isDefined } from './isDefined';
 import { isFunction } from './isFunction';
 import { isNullOrUndefined } from './isNullOrUndefined';
 import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { safe } from './safe';
 import {
   isScalar,
   parse,
@@ -280,7 +280,7 @@ function standardReplacer(_key: string, value: unknown): unknown {
 
     const errAsObj = { stack } as Record<string, unknown>;
     Object.getOwnPropertyNames(value).forEach(key => {
-      doSafely(
+      safe(
         () => errAsObj[ key ] = (value as any)[ key ]
       );
     });

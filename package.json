@@ -4,12 +4,11 @@
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "typedoc --watch --emit both",
-    "build": "tsc",
-    "docs": "typedoc",
-    "docs:watch": "typedoc --watch",
-    "prepublish": "tsc",
-    "test": "tsc && jest"
+    "start": "./scripts/mkindex.sh --watch & typedoc --watch --emit both",
+    "build": "./scripts/mkindex.sh && tsc",
+    "docs": "./scripts/mkindex.sh && typedoc",
+    "docs:watch": "./scripts/mkindex.sh --watch & typedoc --watch",
+    "test": "npm run build && npm run docs && jest"
   },
   "repository": {
     "type": "git",

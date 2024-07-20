@@ -1,11 +1,3 @@
-
-//
-// GENERATED FILE
-//
-// Do not manually edit. This file will be automatically generated
-// based on the exports from local files.
-//
-
 export * from './ApiExError';
 export * from './Delimiter';
 export * from './ExError';
@@ -41,7 +33,6 @@ export * from './createFixedNumberValidator';
 export * from './createMultiProxy';
 export * from './defaultTemplateLiteral';
 export * from './delayPromise';
-export * from './doSafely';
 export * from './echo';
 export * from './entityEncode';
 export * from './entriesRecord';
@@ -97,8 +88,6 @@ export * from './mapDefined';
 export * from './mapFirst';
 export * from './mapGetOrAdd';
 export * from './maxOf';
-export * from './maybeGet';
-export * from './memoizeByAll';
 export * from './minIndent';
 export * from './not';
 export * from './numberLines';
@@ -125,6 +114,8 @@ export * from './removeChars';
 export * from './replaceChars';
 export * from './replacePlaceholders';
 export * from './runtimeEnvironment';
+export * from './safe';
+export * from './safeGet';
 export * from './safeObjectEntries';
 export * from './splitOnCaseWords';
 export * from './standardizeSearchText';

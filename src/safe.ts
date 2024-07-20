@@ -1,4 +1,4 @@
-export async function doSafely<T>(
+export async function safe<T>(
   dangerousAction: () => T | Promise<T>,
   valueOnError?: T,
 ) {
