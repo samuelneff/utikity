@@ -1,6 +1,4 @@
 
-// typedoc-plugin-mdn-links
-// typedoc-plugin-replace-text
 /** @type {import('typedoc').TypeDocOptions} */
 module.exports = {
   plugin: [
@@ -39,6 +37,10 @@ module.exports = {
       {
         pattern: /\[npm!([\w-]+)\]/,
         replace: '<a href="https://www.npmjs.com/package/$1" target="_blank">$1</a>'
+      },
+      {
+        pattern: /\[rfc!(\d+)\]/i,
+        replace: '<a href="https://datatracker.ietf.org/doc/html/rfc$1" target="_blank">RFC $1</a>'
       }
     ]
   }
