@@ -1,7 +1,37 @@
 import { getEntriesUniversal } from './getEntriesUniversal';
 
 /**
- *  Recurisvely loops through an object structure and calls [iteratee] on each item found.
+ * Recurisvely loops through an object structure and calls [iteratee] on each item found. Supports
+ * iterating objects, arrays, Set, and Map.
+ *
+ * @example
+ * const obj = {
+ *   a: 'A',
+ *   b: 'B',
+ *   c: {
+ *     d: 'D',
+ *     e: 'E',
+ *     f: {
+ *       g: 'G',
+ *     },
+ *   },
+ * };
+ *
+ * let keys: string[] = [];
+ * let values: string[] = [];
+ *
+ * recurseObject(
+ *   obj,
+ *   (value, key) => {
+ *     if (typeof value === 'string') {
+ *       keys.push(key);
+ *       values.push(value);
+ *     }
+ *   }
+ * );
+ *
+ * expect(keys).toEqual(['a', 'b', 'd', 'e', 'g']);
+ * expect(values).toEqual(['A', 'B', 'D', 'E', 'G']);
  */
 export function recurseObject<T>(
   obj: T,

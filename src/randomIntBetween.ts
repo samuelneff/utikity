@@ -1,5 +1,13 @@
 /**
  * Returns a random integer between min and max, inclusive of max.
+ *
+ * @example
+ * const actual = randomIntBetween(2, 8);
+ *
+ * expect(actual).toBeGreaterThanOrEqualTo(2);
+ * expect(actual).toBeLessThanOrEqualTo(8);
+ *
+ * @see {@link randomInt}
  */
 export function randomIntBetween(min: number, max: number): number {
   if (min > max) {
