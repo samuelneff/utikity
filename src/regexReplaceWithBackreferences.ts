@@ -1,8 +1,7 @@
 import { toRecord } from './toRecord';
 
 /**
- * Replaces a string based on a regex with groups supporting group substitution (backreferences, $1, $2, etc.)
- * within the replacement string.
+ * @hidden
  */
 export function regexReplaceWithBackreferences(source: string, regex: RegExp, replacement?: string): string {
 
