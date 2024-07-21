@@ -1,5 +1,19 @@
 /**
  * Case-insensitive base-character check if text contains with a specific substring, optionally at a specific position.
+ *
+ * @example
+ *
+ * const input = "Mañana";
+ * const actual = localeIncludes(input, "nan"); // notice n and ñ are considered equal
+ * expect(actual).toBeTruthy();
+ *
+ * @example
+ *
+ * const input = "Mañana";
+ * const actual = localeIncludes(input, "nan", 2); // notice n and ñ are considered equal
+ * expect(actual).toBeTruthy();
+ *
+ * @see {@link localeStartsWith}
  */
 export function localeIncludes(
   text: string,

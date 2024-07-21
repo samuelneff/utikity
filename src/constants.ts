@@ -63,21 +63,150 @@ export const unambiguousNumbers = '3479';
 export const unambiguousLettersAndNumbers = unambiguousLetters + unambiguousNumbers;
 
 /**
- * Regular expression of all Latin characters including accented characters, which are
- * excluded by the `\w` character group.
+ * An extended set of all characters used in all Latin languages plus other characters that
+ * are commonly encountered in people's names in European languages that use variations
+ * similar to the Latin alphabet but are not traditionally considered Latin. The table below shows all
+ * languages and letters from each that are included.
+ *
+ * | Language    | Additional Characters |
+|-------------|------------------------------------------------------------------------------------------------------------------|
+| Catalan     | À, Á, Â, Ç, È, É, Ê, Í, Ò, Ó, Ô, Ú, Ü, Ý, À, È, Ò, Ç |
+| Czech        | Ă, ă, Č, č, Ď, ď, Ě, ě, Ň, ň, Ř, ř, Š, š, Ť, ť, Ž, ž |
+| Croatian     | Č, č, Đ, đ, Š, š, Ž, ž |
+| Dutch        | Ĳ, ĳ |
+| English      | A-Z, a-z (standard Latin letters) |
+| Estonian     | Ä, Ö, Ü, Š, Z |
+| Finnish      | Å, Ä, Ö |
+| French       | À, Â, Æ, Ç, É, È, Ê, Ë, Î, Ï, Ô, Œ, Ù, Û, Ü, Ý |
+| German       | Ä, Ö, Ü, ß |
+| Hungarian    | Á, Ă, ă, É, Ę, ę, Í, Ō, ō, Ū, ū, Ű, ű |
+| Icelandic    | Á, Ð, ß, Í, Ó, Ú, Ý, Þ, æ, ö |
+| Latvian      | Ā, ā, Č, č, Ē, ē, Ģ, ģ, Ķ, ķ, Ļ, ļ, Ņ, ņ, Š, š, Ū, ū, Ž, ž |
+| Lithuanian   | Ā, ā, Č, č, Ę, ę, Ė, ė, Ģ, ģ, Ķ, ķ, Ļ, ļ, Ņ, ņ, Š, š, Ū, ū, Ž, ž |
+| Maltese      | Ċ, ċ, Ġ, ġ, Ħ, ħ |
+| Polish       | Ą, ą, Ć, ć, Ę, ę, Ł, ł, Ń, ń, Ó, ó, Ś, ś, Ź, ź, Ż, ż |
+| Portuguese   | À, Á, Â, Ã, Ç, Ê, Í, Ó, Ô, Õ, Ú, Ü, Ý, à, á, â, ã, ç, ê, í, ò, ô, õ, ú, ü, ý |
+| Romanian     | Ă, ă, Â, â, Î, î, Ş, ş, Ţ, ţ |
+| Serbian      | Č, č, Đ, đ, Š, š, Ž, ž |
+| Slovak       | Ď, ď, Ň, ň, Ŕ, ŕ, Š, š, Ť, ť, Ž, ž |
+| Slovenian    | Č, č, Š, š, Ž, ž |
+| Spanish      | Á, É, Í, Ñ, Ó, Ú, Ü, á, é, í, ñ, ó, ú, ü |
+| Swedish      | Å, Ä, Ö |
+| Turkish      | Ğ, ğ, İ, ı, Ş, ş, Ç, ç |
+| Welsh        | Ĥ, ĥ, Ŵ, ŵ, Ŷ, ŷ |
  */
-export const allLatinLettersRegex = /[A-Za-zÀ-ÿ]+/g;
+export const allLatinLetters = `
+AÀÁÂÃÄÅĀĂĄǍǺÆĀĂĄƁḂĆĈČÇḈĊȻÐĎĐÉÈÊËĒĔĘĚƏƒĜĞĠĢƓĤḢĦÌÍÎÏĨĪĬĮİǏĴĶḰĹĻĽĿŁḾŃŅŇÑŊÒÓÔÕÖØŌŎŐǑŒƆÞǶŔŖŘŚŜŞŠẞṤŦŤŢÙÚÛÜŨŪŬŮŰŲǓŴẀẂẄỲÝŶŸŹŻŽƵ
+B
+CÇĆĈĊČ
+DĎĐÐ
+EÈÉÊËĒĔĖĘĚƏ
+Fƒ
+GĜĞĠĢƓ
+HĤḢĦ
+IÌÍÎÏĨĪĬĮİǏ
+JĴ
+KĶḰ
+LĹĻĽĿŁ
+MḾ
+NŃŅŇÑŊ
+OÒÓÔÕÖØŌŎŐǑŒƆ
+P
+Q
+RŔŖŘ
+SŚŜŞŠẞṤ
+TŢŤŦ
+UÙÚÛÜŨŪŬŮŰŲǓ
+V
+WŴẀẂẄ
+X
+YÝŶŸỲ
+ZŹŻŽƵ
+
+aàáâãäåāăąǎǻæāăąɓḃćĉčçḉċȼðďđéèêëēĕėęěəƒĝğġģɠĥḣħìíîïĩīĭįıǐĵķḱĺļľŀłḿńņňñŋòóôõöøōŏőǒœɔþǷŕŗřśŝşšßṥŧťţùúûüũūŭůűųǔŵẁẃẅỳýŷÿźżžƶ
+b
+cçćĉċč
+dďđð
+eèéêëēĕėęěə
+fƒ
+gĝğġģɠ
+hĥḣħ
+iìíîïĩīĭįıǐ
+jĵ
+kķḱ
+lĺļľŀł
+mḿ
+nńņňñŋ
+oòóôõöøōŏőǒœɔ
+p
+q
+rŕŗř
+sśŝşšßṥ
+tţťŧ
+uùúûüũūŭůűųǔ
+v
+wŵẁẃẅ
+x
+yýŷÿỳ
+zźżžƶ
+Þþ
+Đđ
+Łł
+Śś
+Źź
+Żż
+Čč
+Ďď
+Ňň
+Řř
+Šš
+Ťť
+Žž
+Őő
+Űű
+Ćć
+Ęę
+Łł
+Ńń
+Śś
+Źź
+Żż
+Ĳĳ
+Ĉĉ
+Ġġ
+Ħħ
+Ŋŋ
+Ħħ
+Ċċ
+Ġġ
+ċ
+Ġġ
+Ħħ
+Ċċ
+Ġġ
+Ħħ
+Ċċ
+Ġġ
+Ħħ
+`.replace(/\s/g, '');
+
+/**
+ * Regular expression of all Latin characters including accented characters, which are
+ * excluded by the `\w` character group. See {@link allLatinLetters} for a more complete
+ * explanation.
+ */
+export const allLatinLettersRegex = new RegExp(`[${ allLatinLetters }]+`);
 
 /**
  * Regular expression excluding all Latin characters including accented characters, which are
  * excluded by the `\w` character group.
  */
-export const nonLatinLettersRegex = /[^A-Za-zÀ-ÿ]+/g;
+export const nonLatinLettersRegex = new RegExp(`[^${ allLatinLetters }]+`);
 
 /**
  * Regular expression of characters valid in filenames across operating systems.
  */
-export const allValidFileNameCharacters = /[!"#%&'()+,./0-9=@A-Z\[\]_a-z\{\}~-]+/g;
+export const allValidFileNameCharacters = new RegExp(`[!"#%&'()+,./0-9=@\\[\\]_\\{\\}~${ allLatinLetters }-]+`);
 
 /**
  * Regular expression for an date string with optional time, millisecond, and UTC components.

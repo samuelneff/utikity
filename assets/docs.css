@@ -28,7 +28,7 @@ header a.title::before {
 
 .tsd-navigation a,
 .tsd-page-navigation a {
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 
 .tsd-navigation a.current,
@@ -40,7 +40,7 @@ header a.title::before {
     transparent calc(100% - 1em),
     var(--utikity-orange) calc(100% - 1em)
   );
-  border-bottom: 1px solid var(--utikity-orange);
+  border-bottom: 2px solid var(--utikity-orange);
   text-decoration: none;
 }
 

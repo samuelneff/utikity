@@ -1,5 +1,24 @@
 import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
 
+/**
+ * Maps an array of items to a new converted array of items ignoring any item where the converter
+ * returned null or undefined.
+ *
+ * @example
+ *
+ * function evenSquared(value: number) {
+ *   return value & 1 // is odd
+ *     ? null
+ *     : value * value;
+ * }
+ *
+ * const actual = mapDefined(
+ *   [ 1, 2, 3, 4 ],
+ *   evenSquared,
+ * );
+ *
+ * expect(actual).toEqual([ 4, 16 ]);
+ */
 export function mapDefined<TIn, TOut>(list: TIn[], converter: (item: TIn, index?: number) => TOut | undefined): TOut[] {
   if (isNullUndefinedOrEmpty(list)) {
     return [];

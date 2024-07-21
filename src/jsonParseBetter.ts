@@ -3,8 +3,43 @@ import { fastMaybeParseDateString } from './fastMaybeParseDateString';
 import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
 
 /**
- * Wrapper for JSON.parse() that deserializes dates when strings match
- * ISO date format and provides some improved error messaging.
+ * Non-standard wrapper for {@link !JSON.parse} that deserializes dates when strings match
+ * the most common ISO–8601 date format and provides improved error messaging when parse fails.
+ *
+ * | Enhancement | Notes |
+ * | ----------- | ----- |
+ * | Dates | Dates that match the most common subset of ISO–8601 are converted to JavaScript {@link !Date} objects. See {@link dateTimeRegex} for more details. |
+ * | Error handling | In case of any parsing error the json before, at, and after the error position are additionally included in the message. See the example for details of what additional information is included. |
+ *
+ * @example
+ * // Enhanced date handling
+ * const json = '{date: "2024-07-19"}';
+ * const actual = jsonParseBetter(json);
+ * expect(actual.date).toBeInstanceOf(Date);
+ *
+ * @example
+ * // Bad JSON shows context in the error message
+ * try {
+ *   jsonParseBetter('{ok: 123, text: "Some string", bad: -}');
+ * } catch (error) {
+ *   const ex = error as ExError;
+ *
+ *   const expected = {
+ *     jsonLength: 38,
+ *     jsonStart: '{ok: 123, text:',
+ *     jsonEnd: 'ring", bad: -}',
+ *
+ *     // These properties are only included if the original parse error includes the position,
+ *     // most errors do but not all.
+ *     errorPos: 36,
+ *     jsonAroundPos: ' string", bad:  >>> - <<< }',
+ *     jsonAtPos: '-',
+ *     jsonBefore: ' string", bad: ',
+ *     jsonAfter: '}',
+ *   }
+ * }
+ *
+ * @see {@link !JSON.parse}
  */
 export function jsonParseBetter<T = unknown>(json: string | null | undefined): T | null {
 

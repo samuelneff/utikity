@@ -5,9 +5,61 @@ import { isMap } from './isMap';
 import { RecordKey } from './RecordKey';
 
 /**
- * Wrapper for JSON.stringify() with improved error handling,
+ * Wrapper for {@link !JSON.stringify} with improved error handling,
  * custom handling for some types, and automatic pretty formatting
- * for local development.
+ * for local development. Enhancements include.
+ * | Enhancement | Notes |
+ * | ----------- | ----- |
+ * | `Error` objects | Serialized like regular objects instead of empty objects. |
+ * | `Set` | Serialized into arrays. |
+ * | `Map` | Serialized as objects. |
+ * | Circular references | Ignored instead of throwing an error. |
+ *
+ * @example
+ * // Serialize an error
+ * const actual = jsonStringifyBetter(new Error('An error occurred'));
+ * const expected = {
+ *   name: 'Error',
+ *   message: 'An error occurred',
+ *   stack: expect.stringContaining('jsonStringifyBetter'),
+ * }
+ * expect(actual.message).toEqual(expected);
+ *
+ * @example
+ * // Serialize a Set and Map
+ * const map = new Map();
+ * map.set('a', 'A');
+ *
+ * const set = new Set();
+ * set.add(1);
+ *
+ * const obj = { map, set };
+ * const actual = jsonStringifyBetter(obj);
+ * const expected = {
+ *   map: {
+ *     a: 'A',
+ *   },
+ *   set: [
+ *     1,
+ *   ],
+ * };
+ * expect(actual).toEqual(expected);
+ *
+ * @example
+ * // Ignore a circular reference
+ * const o = {
+ *   child: {};
+ * };
+ * o.child.parent = o;
+ *
+ * const actual = jsonStringifyBetter(o);
+ * const expected = {
+ *   child: {}
+ * };
+ *
+ * expect(actual).toEqual(expected);
+ *
+ * @see {@link !JSON.stringify}
  */
 export function jsonStringifyBetter(value: unknown): string {
 
