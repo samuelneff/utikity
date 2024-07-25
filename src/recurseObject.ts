@@ -1,4 +1,4 @@
-import { getEntriesUniversal } from './getEntriesUniversal';
+import { safeObjectEntries } from './safeObjectEntries';
 
 /**
  * Recurisvely loops through an object structure and calls [iteratee] on each item found. Supports
@@ -44,7 +44,7 @@ export function recurseObject<T>(
   return obj;
 
   function recurseObjectImpl(item: unknown) {
-    for (const entry of getEntriesUniversal(item)) {
+    for (const entry of safeObjectEntries(item as Record<PropertyKey, unknown>)) {
       const [ key, value ] = entry;
       iteratee(value, key, item, root);
       recurseObjectImpl(value);
