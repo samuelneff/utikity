@@ -3,7 +3,7 @@ import { fastMaybeParseDateString } from './fastMaybeParseDateString';
 import { isDefined } from './isDefined';
 import { isFunction } from './isFunction';
 import { isNullOrUndefined } from './isNullOrUndefined';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 import { safe } from './safe';
 import {
   isScalar,
@@ -274,7 +274,7 @@ function standardReplacer(_key: string, value: unknown): unknown {
 
   if (value instanceof Error) {
     const { stack } = value;
-    if (isNullUndefinedOrEmpty(stack)) {
+    if (isEmpty(stack)) {
       return String(value);
     }
 

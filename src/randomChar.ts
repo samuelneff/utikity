@@ -1,5 +1,5 @@
 import { lowercaseLettersAndNumbers } from './constants';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 import { randomInt } from './randomInt';
 
 /**
@@ -7,7 +7,7 @@ import { randomInt } from './randomInt';
  * and numbers if `chars` is not provided.
  */
 export function randomChar(chars?: string): string {
-  const appliedChars: string = isNullUndefinedOrEmpty(chars)
+  const appliedChars: string = isEmpty(chars)
     ? lowercaseLettersAndNumbers
     : chars;
 

@@ -2,8 +2,16 @@ import { kebabCase } from 'lodash';
 import { isCssLengthProperty } from './isCssLengthProperty';
 import { px } from './px';
 import { createElementWithAttributes } from './createElementWithAttributes';
+import { safeObjectEntries } from './safeObjectEntries';
 
+/**
+ * A record of CSS property names and values.
+ */
 export type CssPropertyMap = Record<string, string | number>;
+
+/**
+ * A Map of keyframes and CSS Proprties to set at each keyframe.
+ */
 export type KeyframeMap = Map<string, CssPropertyMap>;
 
 interface CachedAnimation {
@@ -18,6 +26,22 @@ export function createCssAnimation(...frames: CssPropertyMap[]): string;
 export function createCssAnimation(frames: KeyframeMap): string;
 export function createCssAnimation(prefix: string, ...frames: Record<string, string | number>[]): string;
 export function createCssAnimation(prefix: string, frames: KeyframeMap): string;
+/**
+ * Creates a `<style>` element defining a new CSS animation for the provided frames, or returns the
+ * name of an existing animation that was previously created for the exact same frame definitions.
+ *
+ * @example
+ *
+ * const fadeIn = createCssAnimation(
+ *   {
+ *     opacity: 0
+ *   },
+ *   {
+ *     opacity: 1
+ *   }
+ * );
+ * document.getElementById('test').style.animationName = fadeIn;
+ */
 export function createCssAnimation(
   ...args:
     | CssPropertyMap[]
@@ -40,8 +64,7 @@ export function createCssAnimation(
     ? args[0]
     : createKeyframeMap(args as CssPropertyMap[]);
 
-  // @ts-ignore symlink issue causing vscode not to apply tsconfig correctly, thinks spread of map not possible without downloevel iteration
-  const frameEntries = [ ...framesMap.entries() ];
+  const frameEntries = safeObjectEntries(framesMap);
   const condense = frameEntries.every(([ _label, style ]) => Object.keys(style).length < 2);
   const framesText = frameEntries.map(entry => createKeyframe(entry, condense)).join('\n');
   const cacheKey = `${ prefix } :: ${ framesText }`;

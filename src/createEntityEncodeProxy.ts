@@ -13,6 +13,16 @@ const entityEncodeProxy = {
 
 /**
  * Creates a proxy to an object that entity encodes the values upon access, without copying the whole object.
+ *
+ * @example
+ * const source = {
+ *   names: 'John & James',
+ * };
+ * const proxy = createEntityEncodeProxy(source);
+ * const actual = proxy.names;
+ * expect(actual).toBe('John &amp; James');
+ *
+ * @see {@link entityEncode}
  */
 export function createEntityEncodeProxy<T extends object | undefined | null>(target: T) {
   return isNullOrUndefined(target)

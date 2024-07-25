@@ -1,6 +1,12 @@
 import { defaultTemplateLiteral } from './defaultTemplateLiteral';
 import { minIndent } from './minIndent';
 
+export function trimIndent(multilineText: string): string;
+export function trimIndent<
+Elem extends string,
+Template extends ReadonlyArray<Elem>,
+>(template: Template, ...values: unknown[]): string;
+
 /**
  * Given a multi-line string, trims the whitespace at the beginning of each line to be consistent
  * such that the line with the least leading whitespace is fully left justified and the whitespace
@@ -26,15 +32,10 @@ import { minIndent } from './minIndent';
  * expect(actualLines[1]).toStartWith('  return'); // line 2 has an indentation of only 2 spaces
  * expect(actualLines[2]).toBe('}'); // line 3 is the bracket without whitespace
  *
+ * @see {@link collapseWhitespace}
  * @see {@link defaultTemplateLiteral}
  * @see {@link minIndent}
  */
-export function trimIndent(multilineText: string): string;
-export function trimIndent<
-  Elem extends string,
-  Template extends ReadonlyArray<Elem>,
->(template: Template, ...values: unknown[]): string;
-
 export function trimIndent(strings: string | string[], ...values: unknown[]): string {
 
   const source = defaultTemplateLiteral(strings, ...values);

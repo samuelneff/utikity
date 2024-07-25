@@ -13,6 +13,21 @@ export type ArrayComparisonResult<T> = {
  * @param expected The array of expected items.
  * @param actual The array of items we're testing
  * @returns Object with results including original arrays as well as missing and extra elements.
+ *
+ * @example
+ *
+ * const source = [ 1, 2, 3 ];
+ * const target = [ 3, 4, 5 ];
+ * const actual = compareArrays(source, target);
+ * const expected = {
+ *   expected: source,
+ *   actual: target,
+ *   missing: [ 1, 2 ],
+ *   extra: [ 4, 5 ],
+ * };
+ * expect(actual).toEqual(expected);
+ *
+ * @see {@link compareKeys}
  */
 export function compareArrays<T>(
   expected: T[],

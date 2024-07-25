@@ -1,10 +1,20 @@
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 
+/**
+ * Counts how many times a substring appears in the test string.
+ *
+ * @example
+ * const input = 'This is a test string.';
+ * const actual = countOccurrences(input, 'is');
+ * expect(actual).toBe(2); // inside This and the word is
+ *
+ * @see {@link countMatching}
+ */
 export function countOccurrences(source: string | undefined | null, countText: string) {
-  if (isNullUndefinedOrEmpty(source)) {
+  if (isEmpty(source)) {
     return 0;
   }
-  if (isNullUndefinedOrEmpty(countText)) {
+  if (isEmpty(countText)) {
     return source.length;
   }
 

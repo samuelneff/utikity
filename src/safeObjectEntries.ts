@@ -1,7 +1,13 @@
+import { isString } from 'lodash';
 import { isMap } from './isMap';
-import { isNullOrUndefined } from './isNullOrUndefined';
 import { isSet } from './isSet';
 
+export function safeObjectEntries<TValue>(record: Record<PropertyKey, TValue> | undefined | null): [ string, TValue ][];
+export function safeObjectEntries<TValue>(array: TValue[]): [ string, TValue ][];
+export function safeObjectEntries<TKey, TValue>(map: Map<TKey, TValue>): [ TKey, TValue ][];
+export function safeObjectEntries<TKey extends WeakKey, TValue>(map: WeakMap<TKey, TValue>): [ TKey, TValue ][];
+export function safeObjectEntries<TKey>(set: Set<TKey>): [ string, TKey ][];
+export function safeObjectEntries<TKey extends WeakKey>(set: WeakSet<TKey>): [ string, TKey ][];
 /**
  * Returns an array of entries of an object supporting objects, Map<,>, Set<,>, null, and undefined. For
  * null and undefined an empty array is returned. An array is always returned, even in the case of
@@ -38,13 +44,26 @@ import { isSet } from './isSet';
  *
  *
  */
-export function safeObjectEntries<T>(obj: { [s: string]: T } | ArrayLike<T> | undefined | null): [string, T][] {
-  if (isNullOrUndefined(obj)) {
+export function safeObjectEntries(obj: unknown): [unknown, unknown][] {
+  if (isString(obj)) {
+    return Object.entries(obj);
+  }
+
+  if (typeof obj !== 'object' || obj === null) {
     return [];
   }
 
-  if (isMap(obj) || isSet(obj)) {
-    return [ ...obj.entries() ] as [ string, T ][];
+  if (isMap(obj)) {
+    return [ ...obj.entries() ];
+  }
+
+  if (isSet(obj)) {
+    const entries = [] as [ string, unknown ][];
+    let i = 0;
+    for (const item of obj) {
+      entries.push([ (i++).toString(), item ]);
+    }
+    return entries;
   }
 
   try {

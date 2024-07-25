@@ -1,4 +1,4 @@
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 
 /**
  * Maps an array of items to a new converted array of items ignoring any item where the converter
@@ -20,7 +20,7 @@ import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
  * expect(actual).toEqual([ 4, 16 ]);
  */
 export function mapDefined<TIn, TOut>(list: TIn[], converter: (item: TIn, index?: number) => TOut | undefined): TOut[] {
-  if (isNullUndefinedOrEmpty(list)) {
+  if (isEmpty(list)) {
     return [];
   }
   const len = list.length;

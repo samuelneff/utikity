@@ -1,5 +1,5 @@
 import { identity } from 'lodash';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 
 export function maxOf(items: number[]): number;
 export function maxOf<T>(items: T[], selector: (item: T) => number): number;
@@ -30,7 +30,7 @@ export function maxOf<T>(
   selector: (item: T) => number = identity,
   defaultValue: number = 0
 ) {
-  if (isNullUndefinedOrEmpty(items)) {
+  if (isEmpty(items)) {
     return defaultValue;
   }
 

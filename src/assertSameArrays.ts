@@ -1,6 +1,16 @@
 import { ExError } from './ExError';
 import { compareArrays } from './compareArrays';
-
+/**
+ * Throws an error if two arrays don't have the same values with details of the differences.
+ *
+ * @example
+ * const source = [ 'a', 'b', 'c' ];
+ * const target = [ 'b', 'c', 'd' ]
+ * expect(() => assertSameArrays(source, target)).toThrowErrorMatchingInlineSnapshot('');
+ *
+ * @see {@link assertSameKeys}
+ * @see {@link compareArrays}
+ */
 export function assertSameArrays<T extends {}>(
   expected: T[],
   actual: T[],

@@ -1,14 +1,9 @@
 import { isNullOrUndefined } from "./isNullOrUndefined";
 
 /**
- * Valid values for keys of Record<,>.
- */
-export type AllowedKey = keyof any;
-
-/**
  * Function that convers a Record<,> key to a new key.
  */
-export type RecordKeyConverter<TIn, TKey extends AllowedKey = string> = (
+export type PropertyKeyConverter<TIn, TKey extends PropertyKey = string> = (
   value: TIn,
   index: number,
 ) => TKey;
@@ -16,7 +11,7 @@ export type RecordKeyConverter<TIn, TKey extends AllowedKey = string> = (
 /**
  * Function that convers a Record<,> value to a new value.
  */
-export type RecordValueConverter<TIn, TOut, TKey extends AllowedKey = string> = (
+export type RecordValueConverter<TIn, TOut, TKey extends PropertyKey = string> = (
   value: TIn,
   index: number,
   key: TKey,
@@ -60,13 +55,13 @@ export type RecordValueConverter<TIn, TOut, TKey extends AllowedKey = string> = 
  *
  * expect(actual).toEqual(expected);
  *
- * @see {@link RecordKeyConverter}
+ * @see {@link PropertyKeyConverter}
  * @see {@link RecordValueConverter}
  * @see {@link defaultKeyConverter}
  */
-export function toRecord<TIn, TOut = TIn, TKey extends AllowedKey = string>(
+export function toRecord<TIn, TOut = TIn, TKey extends PropertyKey = string>(
   source: TIn[],
-  keyConverter: RecordKeyConverter<TIn, TKey> = defaultKeyConverter as any,
+  keyConverter: PropertyKeyConverter<TIn, TKey> = defaultKeyConverter as any,
   valueConverter: RecordValueConverter<TIn, TOut, TKey> = defaultValueConverter as any
 ): Record<TKey, TOut> {
   return source.reduce((map, value, index) => {

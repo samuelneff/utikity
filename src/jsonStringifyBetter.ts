@@ -2,7 +2,6 @@ import { isDate, isSet } from 'lodash';
 import { isScalarLike } from './isScalarLike';
 import { isRunningLocal } from './runtimeEnvironment';
 import { isMap } from './isMap';
-import { RecordKey } from './RecordKey';
 
 /**
  * Wrapper for {@link !JSON.stringify} with improved error handling,
@@ -99,7 +98,7 @@ export function jsonStringifyBetter(value: unknown): string {
       return value;
     }
 
-    const newValue: Record<RecordKey, unknown> = {};
+    const newValue: Record<PropertyKey, unknown> = {};
     for (const [ key, item ] of value.entries()) {
       newValue[ String(key) ] = item;
     }

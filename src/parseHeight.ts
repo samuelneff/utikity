@@ -1,5 +1,5 @@
 import { ExError } from './ExError';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 import { regexExtractCaptures } from './regexExtractCaptures';
 
 const heightPattern = /^(\d+)' ?(\d+)"$/;
@@ -15,7 +15,7 @@ const heightPattern = /^(\d+)' ?(\d+)"$/;
  * expect(actual).toBe(68);
  */
 export function parseHeight(height: string | null | undefined) {
-  if (isNullUndefinedOrEmpty(height)) {
+  if (isEmpty(height)) {
     return null;
   }
 

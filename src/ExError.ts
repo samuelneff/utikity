@@ -6,7 +6,7 @@ import { yamlStringify } from './yaml';
 import { regexReplaceWithBackreferences } from './regexReplaceWithBackreferences';
 import { errorCauseChain } from './errorCauseChain';
 import { unlessEmpty } from './unlessEmpty';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 
 const stackTraceStartOfLine = / +at /;
 const sourcePathStripStartExp =
@@ -24,9 +24,45 @@ export type LoggableObject = {
 };
 
 /**
- * Base error to use for all application errors thrown. Provides for separate message and metadata,
- * and better representation of all recursive causes and stack traces, plus whether an error has
- * been logged already to avoid duplication.
+ * Extended error object with significant enhanced functionality. Provides for separate message and metadata,
+ * and better representation of nested causes and stack traces, easier to read stack traces, plus
+ * whether an ability to track when an error has been logged already avoid duplication. Consistent use of
+ * `ExError` will provide more information and make applications easier to support and debug.
+ *
+ * @example
+ *
+ * function throwNestedError() {
+ *   try {
+ *     try {
+ *       throw new ExError(
+ *         'Something bad happened',
+ *         {
+ *          a: 'A'
+ *         }
+ *       );
+ *     } catch (error1) {
+ *       throw new ExError(
+ *         'We caught an error, adding more context',
+ *         {
+ *           b: 'B',
+ *         },
+ *         error1,
+ *       );
+ *     }
+ *   } catch (error2) {
+ *     throw new ExError(
+ *       'We also caught the error and are adding even more context',
+ *       {
+ *         c: 'C',
+ *       },
+ *       error2,
+ *     );
+ *   }
+ * }
+ *
+ * expect(throwNestedError).toThrowMatchingInlineSnapshot();
+ *
+ * @see {@link ApiExError}
  */
 export class ExError extends Error {
   public name = this.constructor.name;
@@ -40,11 +76,53 @@ export class ExError extends Error {
     super(staticMessage, { cause });
   }
 
+  /**
+   * Chainable method to add more metadata to an existing `ExError`.
+   *
+   * @example
+   *
+   * try {
+   *   throw ExError('Something bad happened');
+   * } catch (error) {
+   *   const actual = (error as ExError).addMetadata({ a: 'A' });
+   *   expect(actual.metadata.a).toBe('A');
+   *   expect(actual).toBe(error); // adding metadata modifies the original error and returns it
+   * }
+   * expect.hasAssertions();
+   */
   addMetadata(moreMetadata: Record<string, unknown>) {
     Object.assign(this.metadata, moreMetadata);
     return this;
   }
 
+  /**
+   * Adds metadata to an existing `ExError` or wraps the provided error in a new `ExError` if it
+   * is any other type of error. Useful when calling a method that might through `ExError` or might
+   * let a standard error bubble up.
+   *
+   * @example
+   * // Wrapping a different error in ExError with metadata
+   * try {
+   *   throw Error('Something bad happened');
+   * } catch (error) {
+   *   const actual = wrapOrAddMetadata('The cause is not ExError', { a: 'A' }, error);
+   *   expect(actual.metadata.a).toBe('A');
+   *   expect(actual).not.toBe(error); // original is not ExError, so the wrapped ExError is different
+   * }
+   * expect.hasAssertions();
+   *
+   * @example
+   * // Adding metadata to an existing ExError
+   * try {
+   *   throw ExError('Something bad happened');
+   * } catch (error) {
+   *   const actual = wrapOrAddMetadata('The cause is not ExError', { a: 'A' }, error);
+   *   expect(actual.message).toBe('Something bad happened'); // the original message is preserved
+   *   expect(actual.metadata.a).toBe('A'); // metadata was added
+   *   expect(actual).toBe(error); // The returned error is the same as the original since it was already an ExError
+   * }
+   * expect.hasAssertions();
+   */
   static wrapOrAddMetadata(
     staticMessage: string,
     metadata: Record<string, unknown>,
@@ -280,7 +358,7 @@ export class ExError extends Error {
   }
 
   private stackTraceMostRelevantLine(stackTrace?: string): string {
-    if (isNullUndefinedOrEmpty(stackTrace)) {
+    if (isEmpty(stackTrace)) {
       return 'n.a.';
     }
     const lines = stackTrace

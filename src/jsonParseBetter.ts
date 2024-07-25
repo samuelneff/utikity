@@ -1,6 +1,6 @@
 import { ExError } from './ExError';
 import { fastMaybeParseDateString } from './fastMaybeParseDateString';
-import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
+import { isEmpty } from './isEmpty';
 
 /**
  * Non-standard wrapper for {@link !JSON.parse} that deserializes dates when strings match
@@ -43,7 +43,7 @@ import { isNullUndefinedOrEmpty } from './isNullUndefinedOrEmpty';
  */
 export function jsonParseBetter<T = unknown>(json: string | null | undefined): T | null {
 
-  if (isNullUndefinedOrEmpty(json)) {
+  if (isEmpty(json)) {
     return null;
   }
 
