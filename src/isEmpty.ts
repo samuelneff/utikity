@@ -4,6 +4,7 @@ import {
   isDate,
   isFunction,
   isMap,
+  isNumber,
   isSet,
 } from 'lodash';
 import { isNullOrUndefined } from './isNullOrUndefined';
@@ -59,9 +60,14 @@ export function isEmpty(value: unknown): value is undefined | null {
     return value.byteLength === 0;
   }
 
+  if (isNumber(value)) {
+    return Number.isNaN(value);
+  }
+
   if (typeof value === 'object') {
     return Object.keys(value as object).length === 0;
   }
 
+  // Everything else cannot be empty
   return false;
 }

@@ -1,6 +1,12 @@
 
+/**
+ * All defined CSS properties that use a length unit, in camel and kebab case.
+ */
 export type CssLengthProperty = keyof typeof cssLengthPropertiesLookup;
 
+/**
+ * @hidden
+ */
 const cssLengthPropertiesLookup = {
   borderBlockEndWidth: true,
   borderBlockStartWidth: true,

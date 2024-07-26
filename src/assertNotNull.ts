@@ -9,7 +9,7 @@ import { isNullOrUndefined } from './isNullOrUndefined';
  * expect(() => assertNotNull(null)).toThrow();
  *
  * @see {@link isDefined}
- * @see {@link isNullOrEmpty}
+ * @see {@link isUndefinedNullOrEmpty}
  */
 export function assertNotNull<T>(value: T | undefined | null, identifier: string): T {
   if (isNullOrUndefined(value)) {

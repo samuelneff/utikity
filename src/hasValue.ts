@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from './isEmpty';
 
 /**
  * Determines if a value is defined and is not empty. Specifically it is not `undefined`, `null`,
