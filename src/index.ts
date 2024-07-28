@@ -2,6 +2,7 @@ export * from './ApiExError';
 export * from './Delimiter';
 export * from './ExError';
 export * from './HttpMethod';
+export * from './MapCache';
 export * from './Spread';
 export * from './arrayOf';
 export * from './assertArray';
