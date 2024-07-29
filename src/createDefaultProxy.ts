@@ -26,5 +26,5 @@ export function createDefaultProxy<
     }
   };
 
-  return new Proxy(target ?? {}, defaultProxy) as TTarget & Record<PropertyKey, TDefault>;
+  return new Proxy(target ?? {}, defaultProxy) as TTarget | Record<PropertyKey, TDefault>;
 }
