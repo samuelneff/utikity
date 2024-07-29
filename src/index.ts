@@ -19,6 +19,7 @@ export * from './countMatching';
 export * from './countOccurrences';
 export * from './countValues';
 export * from './createCssAnimation';
+export * from './createDefaultProxy';
 export * from './createElementWithAttributes';
 export * from './createEntityEncodeProxy';
 export * from './createMultiProxy';
