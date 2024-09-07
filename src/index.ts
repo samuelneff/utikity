@@ -11,6 +11,7 @@ export * from './assertNotNull';
 export * from './assertSameArrays';
 export * from './assertSameKeys';
 export * from './cacheStyleElement';
+export * from './cloneScalars';
 export * from './collapseWhitespace';
 export * from './compareArrays';
 export * from './compareKeys';
