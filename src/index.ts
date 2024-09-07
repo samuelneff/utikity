@@ -26,6 +26,7 @@ export * from './createElementWithAttributes';
 export * from './createEntityEncodeProxy';
 export * from './createMultiProxy';
 export * from './defaultTemplateLiteral';
+export * from './delayedPromise';
 export * from './echo';
 export * from './entityEncode';
 export * from './entriesRecord';
