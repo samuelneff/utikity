@@ -1,5 +1,5 @@
 /**
- * Calls the mapper for each item in a list sequentiall and until the first non-null response
+ * Calls the mapper for each item in a list sequentially and until the first non-null response
  * is returned by the mapper. Returns `null` if the array is empty or the mapper returns a `null`
  * response for every element in the array.
  *
