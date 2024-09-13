@@ -1,3 +1,5 @@
+import { isNullOrUndefined } from './isNullOrUndefined';
+
 /**
  * Counts the number of items in the array that match the predicate function.
  *
@@ -12,7 +14,12 @@
  *
  * @see {@link countValues}
  */
-export function countMatching<T>(array: T[], predicate: (item: T) => boolean) {
+export function countMatching<T>(array: T[] | null | undefined, predicate: (item: T) => boolean) {
+
+  if (isNullOrUndefined(array)) {
+    return 0;
+  }
+
   let count = 0;
   if (Array.isArray(array)) {
     array.forEach(item => {

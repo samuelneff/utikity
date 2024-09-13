@@ -6,5 +6,5 @@ test('Simple', () => {
   };
   const proxy = createDefaultProxy(target, 'Unknown');
   expect(proxy.name).toBe('John');
-  expect(proxy.title).toBe('Unknown');
+  expect((proxy as Record<string, string>).title).toBe('Unknown');
 });

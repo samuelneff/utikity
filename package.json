@@ -1,6 +1,6 @@
 {
   "name": "utikity",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Unique collection of utility functions; adds on to others, doesn't replace them.",
   "main": "dist/index.js",
   "scripts": {
