@@ -1,3 +1,5 @@
+import { isNullOrUndefined } from './isNullOrUndefined';
+
 /**
  * Calls the mapper for each item in a list sequentially and until the first non-null response
  * is returned by the mapper. Returns `null` if the array is empty or the mapper returns a `null`
@@ -22,6 +24,11 @@ export function mapFirst<TSource, TMapped>(
   array: TSource[],
   mapper: (item: TSource, index: number) => TMapped | null
 ): TMapped | null {
+
+  if (isNullOrUndefined(array)) {
+    return null;
+  }
+
   let index = 0;
   for (const item of array) {
     const mapped = mapper(item, index++);
